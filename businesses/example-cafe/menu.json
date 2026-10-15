@@ -1,0 +1,27 @@
+{
+  "identity": {
+    "name": {"ar": "مقهى غصن", "en": "Ghusn Café"},
+    "type": "cafe", "demo": true,
+    "tagline": {"ar": "قهوة على مهل، ولحظات تستحق.", "en": "Slow coffee. Moments to savour."}
+  },
+  "languages": ["ar", "en"], "defaultLanguage": "ar", "currency": "SDG",
+  "branding": {"logo": "assets/logo.png", "primary": "#164e48", "background": "#f5f9f7", "accent": "#dceee5"},
+  "priceNote": {"ar": "جميع الأصناف والأسعار خيالية لغرض العرض فقط. الأسعار المعروضة شاملة الرسوم في هذا المثال.", "en": "All items and prices are fictional and for demonstration only. Listed demo prices include fees."},
+  "categories": [
+    {"id": "hot-coffee", "name": {"ar": "القهوة الساخنة", "en": "Hot coffee"}, "items": [
+      {"id": "espresso", "name": {"ar": "إسبريسو", "en": "Espresso"}, "description": {"ar": "قهوة مركّزة بطعم غني وطبقة كريما ناعمة.", "en": "A rich, concentrated shot with a smooth crema."}, "price": 2500, "image": "assets/items/espresso.png"},
+      {"id": "latte", "name": {"ar": "كافيه لاتيه", "en": "Café latte"}, "description": {"ar": "إسبريسو وحليب مبخّر، مع رغوة خفيفة.", "en": "Espresso with steamed milk and a light foam."}, "price": 4000, "image": "assets/items/latte.png", "extras": [{"id": "latte-extra-shot", "name": {"ar": "جرعة إسبريسو إضافية", "en": "Extra espresso shot"}, "price": 1000}]},
+      {"id": "cappuccino", "name": {"ar": "كابتشينو", "en": "Cappuccino"}, "description": {"ar": "توازن من الإسبريسو والحليب ورغوة كثيفة.", "en": "Balanced espresso, milk, and a generous foam."}, "price": 4000},
+      {"id": "americano", "name": {"ar": "أمريكانو", "en": "Americano"}, "description": {"ar": "إسبريسو وماء ساخن لنكهة صافية.", "en": "Espresso and hot water for a clean, full flavour."}, "variants": [{"id": "americano-regular", "name": {"ar": "عادي", "en": "Regular"}, "price": 3000}, {"id": "americano-large", "name": {"ar": "كبير", "en": "Large"}, "price": 3500}]}
+    ]},
+    {"id": "cold-drinks", "name": {"ar": "المشروبات الباردة", "en": "Cold drinks"}, "items": [
+      {"id": "iced-latte", "name": {"ar": "آيس لاتيه", "en": "Iced latte"}, "description": {"ar": "إسبريسو وحليب بارد على مكعبات الثلج.", "en": "Espresso and cold milk poured over ice."}, "price": 4500},
+      {"id": "hibiscus", "name": {"ar": "كركديه بارد", "en": "Iced hibiscus"}, "description": {"ar": "كركديه منعش بلمسة حلوة خفيفة.", "en": "Refreshing hibiscus with a gently sweet finish."}, "price": 3000, "labels": [{"ar": "بدون كافيين", "en": "Caffeine-free"}]},
+      {"id": "water", "name": {"ar": "مياه", "en": "Water"}, "price": 0}
+    ]},
+    {"id": "bakery", "name": {"ar": "من المخبز", "en": "From the bakery"}, "items": [
+      {"id": "croissant", "name": {"ar": "كرواسون زبدة", "en": "Butter croissant"}, "description": {"ar": "طبقات هشة، تُخبز حتى تصبح ذهبية.", "en": "Flaky layers baked until golden."}, "price": 3500, "labels": [{"ar": "يحتوي على القمح والحليب", "en": "Contains wheat and milk"}]},
+      {"id": "date-cake", "name": {"ar": "كيكة التمر", "en": "Date cake"}, "description": {"ar": "قطعة كيك طرية بنكهة التمر.", "en": "A soft slice of date cake."}, "price": 4000, "available": false}
+    ]}
+  ]
+}

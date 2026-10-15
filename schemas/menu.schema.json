@@ -1,0 +1,46 @@
+{
+  "$schema": "http://json-schema.org/draft-07/schema#",
+  "title": "Holool business menu",
+  "type": "object",
+  "additionalProperties": false,
+  "required": ["identity", "languages", "defaultLanguage", "currency", "branding", "categories"],
+  "properties": {
+    "identity": {
+      "type": "object", "additionalProperties": false, "required": ["name", "type"],
+      "properties": {"name": {"$ref": "#/definitions/text"}, "type": {"type": "string", "minLength": 1}, "tagline": {"$ref": "#/definitions/text"}, "demo": {"type": "boolean"}}
+    },
+    "languages": {"type": "array", "minItems": 1, "uniqueItems": true, "items": {"enum": ["ar", "en"]}},
+    "defaultLanguage": {"enum": ["ar", "en"]},
+    "currency": {"type": "string", "pattern": "^[A-Z]{3}$", "default": "SDG"},
+    "branding": {
+      "type": "object", "additionalProperties": false,
+      "properties": {"logo": {"$ref": "#/definitions/asset"}, "primary": {"$ref": "#/definitions/color"}, "background": {"$ref": "#/definitions/color"}, "accent": {"$ref": "#/definitions/color"}}
+    },
+    "contact": {
+      "type": "object", "additionalProperties": false,
+      "properties": {"phone": {"type": "string", "pattern": "^\\+?[0-9 ()-]{5,25}$"}, "whatsapp": {"type": "string", "pattern": "^[0-9]{7,15}$"}, "address": {"$ref": "#/definitions/text"}, "hours": {"$ref": "#/definitions/text"}, "map": {"type": "string", "pattern": "^https://[^\\s]+$"}}
+    },
+    "priceNote": {"$ref": "#/definitions/text"},
+    "categories": {"type": "array", "items": {
+      "type": "object", "additionalProperties": false, "required": ["id", "name", "items"],
+      "properties": {"id": {"$ref": "#/definitions/id"}, "name": {"$ref": "#/definitions/text"}, "description": {"$ref": "#/definitions/text"}, "visible": {"type": "boolean"}, "items": {"type": "array", "items": {"$ref": "#/definitions/item"}}}
+    }}
+  },
+  "definitions": {
+    "id": {"type": "string", "pattern": "^[a-z0-9]+(?:-[a-z0-9]+)*$"},
+    "text": {"type": "object", "minProperties": 1, "additionalProperties": false, "properties": {"ar": {"type": "string", "minLength": 1}, "en": {"type": "string", "minLength": 1}}},
+    "asset": {"type": "string", "pattern": "^assets/(?:[a-zA-Z0-9_-]+/)*[a-zA-Z0-9_-]+\\.(png|jpg|jpeg|webp|avif)$"},
+    "color": {"type": "string", "pattern": "^#[0-9a-fA-F]{6}$"},
+    "price": {"type": "number", "minimum": 0, "maximum": 1000000000000},
+    "option": {"type": "object", "additionalProperties": false, "required": ["id", "name", "price"], "properties": {"id": {"$ref": "#/definitions/id"}, "name": {"$ref": "#/definitions/text"}, "price": {"$ref": "#/definitions/price"}}},
+    "item": {
+      "type": "object", "additionalProperties": false, "required": ["id", "name"],
+      "not": {"required": ["price", "variants"]},
+      "properties": {
+        "id": {"$ref": "#/definitions/id"}, "name": {"$ref": "#/definitions/text"}, "description": {"$ref": "#/definitions/text"}, "image": {"$ref": "#/definitions/asset"},
+        "price": {"$ref": "#/definitions/price"}, "variants": {"type": "array", "minItems": 1, "items": {"$ref": "#/definitions/option"}}, "extras": {"type": "array", "items": {"$ref": "#/definitions/option"}},
+        "available": {"type": "boolean"}, "visible": {"type": "boolean"}, "labels": {"type": "array", "items": {"$ref": "#/definitions/text"}}
+      }
+    }
+  }
+}

@@ -1,0 +1,8 @@
+{
+  "identity": {"name": {"ar": "اسم المنشأة"}, "type": "cafe"},
+  "languages": ["ar"],
+  "defaultLanguage": "ar",
+  "currency": "SDG",
+  "branding": {"primary": "#164e48", "background": "#f5f9f7", "accent": "#dceee5"},
+  "categories": []
+}

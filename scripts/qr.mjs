@@ -1,0 +1,13 @@
+import fs from 'node:fs/promises';
+import path from 'node:path';
+import QRCode from 'qrcode';
+import { root, loadBusinesses } from './validate.mjs';
+const slug = process.argv[2];
+const base = new URL(process.argv[3] || 'https://menu.holoolsoftware.com/');
+if (base.protocol !== 'https:' || base.pathname !== '/' || base.search || base.hash || base.username || base.password) throw new Error('Provide an HTTPS origin, e.g. https://menu.holoolsoftware.com/');
+if (!(await loadBusinesses()).some(b => b.slug === slug)) throw new Error('Usage: npm run qr -- existing-business-slug [https://custom-domain/]');
+const url = new URL(`${slug}/`, base).href;
+await fs.mkdir(path.join(root, 'output'), {recursive: true});
+await QRCode.toFile(path.join(root, 'output', `${slug}-qr.png`), url, {width: 1200, margin: 4, errorCorrectionLevel: 'M'});
+await fs.writeFile(path.join(root, 'output', `${slug}-qr.svg`), await QRCode.toString(url, {type:'svg', margin:4, errorCorrectionLevel:'M'}));
+console.log(`QR URL: ${url}\nSaved output/${slug}-qr.png and output/${slug}-qr.svg`);
