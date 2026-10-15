@@ -13,7 +13,7 @@
 
 ## Conventions
 
-- Lowercase, hyphen-separated English slugs. `shared` and `assets` are reserved.
+- Lowercase, hyphen-separated English slugs. `shared`, `assets`, and `en` (English homepage) are reserved.
 - Category/item/variant/extra IDs are globally unique within one business. Preserve IDs across edits.
 - Array order determines category and item order. `visible: false` removes content from HTML. `available: false` retains it with an unavailable label.
 - Every supplied text object needs the default language. Other supported-language fields are optional: a missing translation displays the original text with its own `lang` and direction.
@@ -21,5 +21,5 @@
 - Branding colors accept six-digit hex. Use a dark primary color (white text), a light background/accent (dark text), and verify contrast after branding changes.
 - No backend, ordering, accounts, payments, or administrative UI. Keep client JavaScript small and optional.
 - `dist/`, `node_modules/`, and generated `output/` QR files are ignored. Only deploy `dist/`.
-- Root URL is a private-client-neutral Holool service page. Do not add a client directory without an explicit request.
+- Root URL is a Holool service page for static websites across industries, using supplied blue/navy branding. Its English version is `/en/`. Keep homepage styles separate from business themes. Do not add a client directory without an explicit request.
 - CI checks `main` and uploads a static artifact. GitHub Pages deployment runs only with repository Actions variable `ENABLE_PAGES=true`; Pages and domain ownership must be configured per README. Do not change repository visibility without the owner's explicit authorization.

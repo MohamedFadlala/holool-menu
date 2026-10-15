@@ -2,8 +2,8 @@ import fs from 'node:fs/promises';
 import path from 'node:path';
 import { root, slugPattern } from './validate.mjs';
 const slug = process.argv[2];
-if (!slug || !slugPattern.test(slug) || ['shared', 'assets'].includes(slug)) {
-  console.error('Usage: npm run new -- business-slug (lowercase English letters/numbers and hyphens; shared/assets are reserved)');
+if (!slug || !slugPattern.test(slug) || ['shared', 'assets', 'en'].includes(slug)) {
+  console.error('Usage: npm run new -- business-slug (lowercase English letters/numbers and hyphens; shared/assets/en are reserved)');
   process.exit(1);
 }
 const directory = path.join(root, 'businesses', slug);

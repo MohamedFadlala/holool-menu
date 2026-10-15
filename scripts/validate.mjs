@@ -45,7 +45,7 @@ export async function loadBusinesses() {
   const businesses = [];
   for (const entry of await fs.readdir(path.join(root, 'businesses'), { withFileTypes: true })) {
     if (!entry.isDirectory()) continue;
-    if (!slugPattern.test(entry.name) || ['shared', 'assets'].includes(entry.name)) throw new Error(`Invalid or reserved business slug: ${entry.name}`);
+    if (!slugPattern.test(entry.name) || ['shared', 'assets', 'en'].includes(entry.name)) throw new Error(`Invalid or reserved business slug: ${entry.name}`);
     const directory = path.join(root, 'businesses', entry.name);
     const menu = JSON.parse(await fs.readFile(path.join(directory, 'menu.json'), 'utf8'));
     const errors = await validateMenu(menu, directory);

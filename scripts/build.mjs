@@ -5,6 +5,7 @@ import sharp from 'sharp';
 import { root, loadBusinesses } from './validate.mjs';
 import { menuContent } from '../src/components/menu.mjs';
 import { page } from '../src/layouts/page.mjs';
+import { homeContent } from '../src/components/home.mjs';
 
 export async function build({basePath = process.env.BASE_PATH || ''} = {}) {
   const render = options => page({...options, basePath});
@@ -17,6 +18,11 @@ export async function build({basePath = process.env.BASE_PATH || ''} = {}) {
   await fs.mkdir(path.join(dist, 'shared'), { recursive: true });
   await fs.copyFile(path.join(root, 'src/styles/styles.css'), path.join(dist, 'shared/styles.css'));
   await fs.copyFile(path.join(root, 'src/menu.js'), path.join(dist, 'shared/menu.js'));
+  await fs.copyFile(path.join(root, 'src/styles/home.css'), path.join(dist, 'shared/home.css'));
+  await fs.mkdir(path.join(dist, 'shared/brand'), {recursive:true});
+  await sharp(path.join(root,'src/assets/holool-logo.png')).resize({width:960,withoutEnlargement:true}).webp({quality:88}).toFile(path.join(dist,'shared/brand/logo.webp'));
+  await sharp(path.join(root,'src/assets/holool-icon.png')).resize({width:128,withoutEnlargement:true}).webp({quality:88}).toFile(path.join(dist,'shared/brand/icon.webp'));
+  await sharp(path.join(root,'src/assets/holool-icon.png')).resize(48,48,{fit:'contain',background:'#ffffff'}).png().toFile(path.join(dist,'shared/brand/favicon.png'));
   for (const { slug, menu, directory } of businesses) {
     const target = path.join(dist, slug);
     await fs.mkdir(target, { recursive: true });
@@ -47,9 +53,16 @@ export async function build({basePath = process.env.BASE_PATH || ''} = {}) {
       await fs.writeFile(path.join(langDir, 'index.html'), render({title, lang, content, style, script: true}));
     }
   }
-  const content = `<header class="topbar"><a class="wordmark" href="/" aria-label="Holool Software"><span class="holool-icon">h</span> holool<span class="software">software</span></a></header><main class="landing"><h1>قائمتك، أقرب إلى عملائك.</h1><p>قوائم رقمية من حلول للبرمجيات. افتح رابط المنشأة أو امسح رمز QR للاطلاع على قائمتها.</p><p lang="en" dir="ltr">Digital menus by Holool Software. Scan a business’s QR code or open its direct link to explore its menu.</p><a class="landing-link" href="https://holoolsoftware.com">Holool Software</a></main><footer>Powered by <a href="https://holoolsoftware.com">Holool</a></footer>`;
-  await fs.writeFile(path.join(dist, 'index.html'), render({title: 'Holool Software | قوائم رقمية', content}));
-  await fs.writeFile(path.join(dist, '404.html'), render({title: 'Page not found | الصفحة غير موجودة', content: '<main class="landing"><h1>الصفحة غير موجودة</h1><p>تحقق من رابط القائمة أو امسح رمز QR مرة أخرى.</p><p lang="en" dir="ltr">Menu not found. Check the link or scan the QR code again.</p><a href="/">Holool Software</a></main>'}));
+  for (const lang of ['ar','en']) {
+    const directory = lang === 'ar' ? dist : path.join(dist,'en');
+    await fs.mkdir(directory,{recursive:true});
+    await fs.writeFile(path.join(directory,'index.html'),render({
+      title:lang === 'ar' ? 'حلول التقنية | مواقع للشركات والأفراد والمشاريع' : 'Holool | Websites for businesses, people & projects',
+      description:lang === 'ar' ? 'مواقع تعريفية وصفحات هبوط ومعارض أعمال وكتالوجات خدمات بهوية مشروعك. مواقع ثابتة من حلول التقنية.' : 'Company websites, landing pages, portfolios, and service catalogs shaped around your identity. Static websites by Holool.',
+      lang,content:homeContent(lang),stylesheet:'/shared/home.css',favicon:'/shared/brand/favicon.png',themeColor:'#062652'
+    }));
+  }
+  await fs.writeFile(path.join(dist, '404.html'), render({title: 'Page not found | الصفحة غير موجودة', stylesheet:'/shared/home.css', favicon:'/shared/brand/favicon.png', themeColor:'#062652', content: '<main class="site-hero site-width"><div class="site-hero-copy"><h1>الصفحة غير موجودة</h1><p>تحقق من الرابط أو عُد إلى الصفحة الرئيسية.</p><p lang="en" dir="ltr">Page not found. Check the link or return to the homepage.</p><div class="site-actions"><a class="site-button" href="/">الصفحة الرئيسية</a><a class="site-text-link" href="/en/" lang="en">English homepage</a></div></div><figure class="site-identity"><img src="/shared/brand/logo.webp" alt="حلول التقنية" width="640" height="557"></figure></main>'}));
   await fs.writeFile(path.join(dist, '.nojekyll'), '');
   await fs.writeFile(path.join(dist, 'CNAME'), 'menu.holoolsoftware.com\n');
   console.log(`Built ${businesses.length} business(es) into dist/.`);

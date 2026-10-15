@@ -2,7 +2,7 @@
 
 Mobile-first, Arabic-first static menus for multiple businesses. A small Node generator renders real HTML files using one shared renderer; no framework runtime or backend is needed. Each menu works without JavaScript. The ~2 KB client script adds search and category filters. JSON Schema (Ajv) checks data, Sharp compresses images to WebP, and QRCode produces print-ready codes.
 
-The only included business, **Ghusn Café / مقهى غصن**, is entirely fictional. The root service page does not list businesses.
+The only included business, **Ghusn Café / مقهى غصن**, is entirely fictional. The main Holool website presents static websites for companies, professionals, projects, and service catalogs, using the supplied Holool logo and blue/navy palette. Arabic is at `/`, English at `/en/`. It does not list client businesses. Homepage content and styles live in `src/components/home.mjs` and `src/styles/home.css`; brand originals are in `src/assets/` and are optimized during builds. Business menus retain their own branding and shared menu renderer.
 
 Repository: [MohamedFadlala/holool-menu](https://github.com/MohamedFadlala/holool-menu) is public with the owner's authorization. The site is hosted at [GitHub Pages](https://mohamedfadlala.github.io/holool-menu/), with the demo at [example-cafe](https://mohamedfadlala.github.io/holool-menu/example-cafe/). CI validates, tests, builds, and deploys on pushes to `main`; the repository Actions variable `ENABLE_PAGES=true` enables deployment. All tracked briefs and original sources are publicly readable in GitHub even though the website excludes them: do not commit confidential source files. The intended permanent domain `menu.holoolsoftware.com` still needs DNS configuration.
 
@@ -30,7 +30,7 @@ npm run new -- business-slug
 3. Replace the starter name in `menu.json` and transcribe supplied data. Set languages, defaultLanguage, currency, and branding. Empty categories are valid and produce a useful empty state.
 4. Validate and build. Review that business's permanent direct URL and language versions before committing.
 
-The lowercase folder slug determines `https://menu.holoolsoftware.com/business-slug/`. Never rename a live folder without an explicit request. `shared` and `assets` are reserved. Do not put secrets in repository briefs; excluding them from the website does not make a public GitHub repository private.
+The lowercase folder slug determines `https://menu.holoolsoftware.com/business-slug/`. Never rename a live folder without an explicit request. `shared`, `assets`, and `en` are reserved. Do not put secrets in repository briefs; excluding them from the website does not make a public GitHub repository private.
 
 ## Update content
 

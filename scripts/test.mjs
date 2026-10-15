@@ -33,7 +33,7 @@ test('data contract rejects invalid prices, duplicate IDs, missing/unsafe assets
 test('project-path deployment prefixes internal links and assets without changing external URLs', async () => {
   try {
     await build({basePath:'/holool-menu'});
-    for (const relative of ['index.html','404.html','example-cafe/index.html','example-cafe/en/index.html']) {
+    for (const relative of ['index.html','en/index.html','404.html','example-cafe/index.html','example-cafe/en/index.html']) {
       const html = await fs.readFile(path.join(root,'dist',relative),'utf8');
       const localURLs = [...html.matchAll(/(?:href|src)="(\/(?!\/)[^"]*)"/g)].map(match => match[1]);
       assert.ok(localURLs.length);
