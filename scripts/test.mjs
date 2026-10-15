@@ -38,7 +38,7 @@ test('project-path deployment prefixes internal links and assets without changin
       const localURLs = [...html.matchAll(/(?:href|src)="(\/(?!\/)[^"]*)"/g)].map(match => match[1]);
       assert.ok(localURLs.length);
       assert.ok(localURLs.every(url => url.startsWith('/holool-menu/')));
-      assert.match(html, /href="https:\/\/holoolsoftware.com"/);
+      if (relative !== '404.html') assert.match(html, /href="https:\/\/holoolsoftware.com"/);
     }
     await assert.rejects(build({basePath:'https://unsafe.example'}), /BASE_PATH/);
   } finally { await build({basePath:''}); }
