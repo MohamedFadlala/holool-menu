@@ -30,6 +30,19 @@ test('data contract rejects invalid prices, duplicate IDs, missing/unsafe assets
   const text = clone(); text.categories[0].items[0].name = {en:'Espresso'};
   assert.match((await validateMenu(text, directory)).join(), /missing default language/);
 });
+test('project-path deployment prefixes internal links and assets without changing external URLs', async () => {
+  try {
+    await build({basePath:'/holool-menu'});
+    for (const relative of ['index.html','404.html','example-cafe/index.html','example-cafe/en/index.html']) {
+      const html = await fs.readFile(path.join(root,'dist',relative),'utf8');
+      const localURLs = [...html.matchAll(/(?:href|src)="(\/(?!\/)[^"]*)"/g)].map(match => match[1]);
+      assert.ok(localURLs.length);
+      assert.ok(localURLs.every(url => url.startsWith('/holool-menu/')));
+      assert.match(html, /href="https:\/\/holoolsoftware.com"/);
+    }
+    await assert.rejects(build({basePath:'https://unsafe.example'}), /BASE_PATH/);
+  } finally { await build({basePath:''}); }
+});
 test('renderer preserves zero, missing prices, fallbacks, hidden content, empty state and escaping', () => {
   const menu = clone();
   menu.categories[0].items[0].price = 0;
