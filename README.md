@@ -4,6 +4,8 @@ Mobile-first, Arabic-first static menus for multiple businesses. A small Node ge
 
 The only included business, **Ghusn Café / مقهى غصن**, is entirely fictional. The root service page does not list businesses.
 
+Repository: [MohamedFadlala/holool-menu](https://github.com/MohamedFadlala/holool-menu). CI validates, tests, builds, and uploads the static Pages artifact on pushes to `main`. Deployment is opt-in through the repository Actions variable `ENABLE_PAGES=true`, after Pages is available and configured. A private repository requires a GitHub plan supporting private-repository Pages; alternatively deploy `dist/` with another static host.
+
 ## Run locally
 
 Install Node.js 22 or newer, then:
@@ -56,7 +58,7 @@ This writes downloadable `output/example-cafe-qr.png` (1200 px) and `.svg`, enco
 ## Deploy on GitHub Pages
 
 1. Push this project and `package-lock.json` to a GitHub repository on `main`.
-2. In **Settings → Pages → Build and deployment**, select **GitHub Actions**. The included workflow installs dependencies, validates/tests, builds, and deploys only `dist/`.
+2. In **Settings → Pages → Build and deployment**, select **GitHub Actions**. In **Settings → Secrets and variables → Actions → Variables**, create `ENABLE_PAGES` with value `true`. The included workflow installs dependencies, validates/tests, builds, and deploys only `dist/`. If Pages is unavailable for the repository's visibility and plan, leave this variable disabled; CI still checks the project and uploads the static artifact.
 3. In **Settings → Pages → Custom domain**, enter `menu.holoolsoftware.com` and save.
 4. At the DNS provider, create a **CNAME** record: name `menu`, target `<github-owner>.github.io` (no scheme or repository path). Remove conflicting A/AAAA records for this subdomain. Verify domain ownership in GitHub using its displayed TXT record where applicable.
 5. Wait for DNS and GitHub's certificate, then enable **Enforce HTTPS**. Check `/example-cafe/` and `/example-cafe/en/` directly and after refresh.

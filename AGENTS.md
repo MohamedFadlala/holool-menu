@@ -22,4 +22,4 @@
 - No backend, ordering, accounts, payments, or administrative UI. Keep client JavaScript small and optional.
 - `dist/`, `node_modules/`, and generated `output/` QR files are ignored. Only deploy `dist/`.
 - Root URL is a private-client-neutral Holool service page. Do not add a client directory without an explicit request.
-- CI deploys `main` via GitHub Pages. Deployment and domain ownership must be configured by the repository owner per README.
+- CI checks `main` and uploads a static artifact. GitHub Pages deployment runs only with repository Actions variable `ENABLE_PAGES=true`; Pages and domain ownership must be configured per README. Do not change repository visibility without the owner's explicit authorization.
