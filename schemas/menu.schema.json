@@ -14,7 +14,7 @@
     "currency": {"type": "string", "pattern": "^[A-Z]{3}$", "default": "SDG"},
     "branding": {
       "type": "object", "additionalProperties": false,
-      "properties": {"logo": {"$ref": "#/definitions/asset"}, "theme": {"enum": ["ornate"]}, "primary": {"$ref": "#/definitions/color"}, "background": {"$ref": "#/definitions/color"}, "accent": {"$ref": "#/definitions/color"}}
+      "properties": {"logo": {"$ref": "#/definitions/asset"}, "theme": {"enum": ["ornate"]}, "attribution": {"enum": ["footer"]}, "primary": {"$ref": "#/definitions/color"}, "background": {"$ref": "#/definitions/color"}, "accent": {"$ref": "#/definitions/color"}}
     },
     "contact": {
       "type": "object", "additionalProperties": false,

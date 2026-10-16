@@ -11,6 +11,12 @@ Create an online salon menu under Holool matching the attached poster's style an
 - Style: warm ivory parchment, antique gold frames, dark brown lettering, centered crown and four-season shield motif. Use shared opt-in `ornate` theme. Inline crest is a decorative interpretation, not an extracted original logo. No separate logo supplied.
 - Palette: primary #60390F, background #FBF5E7, accent #F2E2B9, gold decorative borders. No external images or fonts.
 
+## Requested presentation update
+
+- Remove Holool Software branding and its digital-menu label from the top bar. Keep the language switch.
+- Show exactly `powered by Holoolsoftware.com` in the footer, linking to https://holoolsoftware.com.
+- Use `branding.attribution: "footer"` to scope this change to this salon.
+
 ## Supplied content
 
 - Source: `source/menu-reference.jpeg`, copied from the attached WhatsApp Image 2026-10-10 at 1.37.23 PM.jpeg.

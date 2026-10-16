@@ -20,7 +20,8 @@
     "theme": "ornate",
     "primary": "#60390F",
     "background": "#FBF5E7",
-    "accent": "#F2E2B9"
+    "accent": "#F2E2B9",
+    "attribution": "footer"
   },
   "contact": {
     "phone": "0100494444"
