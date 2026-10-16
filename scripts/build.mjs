@@ -17,6 +17,7 @@ export async function build({basePath = process.env.BASE_PATH || ''} = {}) {
   await fs.rm(dist, { recursive: true, force: true });
   await fs.mkdir(path.join(dist, 'shared'), { recursive: true });
   await fs.copyFile(path.join(root, 'src/styles/styles.css'), path.join(dist, 'shared/styles.css'));
+  await fs.copyFile(path.join(root, 'src/styles/ornate.css'), path.join(dist, 'shared/ornate.css'));
   await fs.copyFile(path.join(root, 'src/menu.js'), path.join(dist, 'shared/menu.js'));
   await fs.copyFile(path.join(root, 'src/styles/home.css'), path.join(dist, 'shared/home.css'));
   await fs.mkdir(path.join(dist, 'shared/brand'), {recursive:true});
@@ -50,7 +51,7 @@ export async function build({basePath = process.env.BASE_PATH || ''} = {}) {
         content = content.replace(/class="language" href="[^"]*"/, `class="language" href="${href}"`);
       }
       const title = menu.identity.name[lang] || menu.identity.name[menu.defaultLanguage];
-      await fs.writeFile(path.join(langDir, 'index.html'), render({title, lang, content, style, script: true}));
+      await fs.writeFile(path.join(langDir, 'index.html'), render({title, lang, content, style, script: true, themeColor: menu.branding.primary, extraStylesheet: menu.branding.theme === 'ornate' ? '/shared/ornate.css' : ''}));
     }
   }
   for (const lang of ['ar','en']) {

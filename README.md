@@ -44,6 +44,8 @@ Read root `AGENTS.md`, the target brief, and source documents first. Edit only t
 - **Claims/fees:** use `labels` and `priceNote` only when explicitly supplied. Never infer allergens or tax inclusion.
 - **Branding:** six-digit `primary`, `background`, `accent` colors. Keep primary dark for white text and background/accent light for dark text; check contrast and mobile readability when changing them. Text uses local Tahoma/Segoe UI/Arial with Arabic support, avoiding external font requests.
 
+  Optional `branding.theme: "ornate"` adds ivory/gold framing, a centered identity, a decorative crown-and-seasons crest when no logo is supplied, and compact service rows. Its separate stylesheet loads only for businesses choosing this theme. Four Season Salon uses it at `/four-season-salon/` (Arabic) and `/four-season-salon/en/` (English identity with original Arabic service names).
+
 See `schemas/menu.schema.json` and `businesses/example-cafe/menu.json` for the complete data shape. `npm run validate` catches schema errors, duplicate IDs, invalid prices, language mismatches, unsafe paths, and missing assets. Build also rejects unreadable image data. Never invent content to fix validation: report the exact ambiguity to the owner.
 
 ## QR codes

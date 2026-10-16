@@ -1,0 +1,104 @@
+/* Opt-in business theme; homepage and default business styles stay independent. */
+.ornate {
+  --ink: #42290f;
+  --muted: #725632;
+  --line: #d2b67a;
+  --gold: #a67729;
+  min-height: 100vh;
+  color: var(--ink);
+  background: radial-gradient(ellipse at 15% 12%, #e6d1a34d, transparent 45%),
+    radial-gradient(ellipse at 85% 80%, #e6d1a34d, transparent 45%), var(--background);
+  border: 8px double var(--gold);
+}
+.ornate .topbar { height: 66px; }
+.ornate .holool-icon { background: var(--primary); }
+.ornate .shell { max-width: 1100px; padding-top: 0; }
+.ornate .brand-header {
+  position: relative;
+  display: block;
+  min-height: 0;
+  padding: 22px 24px 30px;
+  color: var(--primary);
+  background: transparent;
+  border-radius: 0;
+  text-align: center;
+  border-bottom: 1px solid var(--line);
+}
+.ornate .brand-header::before, .ornate .brand-header::after {
+  content: '❦'; position: absolute; top: 100px; font-family: Georgia, serif;
+  color: var(--gold); font-size: 80px; line-height: 1;
+}
+.ornate .brand-header::before { left: 9%; transform: rotate(-28deg); }
+.ornate .brand-header::after { right: 9%; transform: rotate(28deg) scaleX(-1); }
+.ornate .seasonal-crest { display: block; width: 118px; height: 138px; margin: 0 auto 14px; }
+.ornate .logo { display: block; margin: 0 auto 14px; }
+.ornate h1 { font-family: 'Traditional Arabic', 'Times New Roman', serif; font-size: 48px; line-height: 1.35; }
+.ornate .alternate-name { margin: 8px 0 0; font-family: Georgia, 'Traditional Arabic', serif; font-size: 20px; letter-spacing: .08em; }
+.ornate .alternate-name[lang=ar] { letter-spacing: 0; }
+.ornate .brand-divider { display: flex; align-items: center; justify-content: center; gap: 16px; color: var(--gold); margin: 14px auto 10px; max-width: 330px; }
+.ornate .brand-divider::before, .ornate .brand-divider::after { content: ''; height: 1px; flex: 1; background: var(--gold); }
+.ornate .tagline { margin: 0; font-size: 15px; opacity: 1; color: var(--muted); }
+.ornate .menu-heading h2 { font-size: 23px; }
+.ornate .search-wrap { border-color: var(--line); border-radius: 4px; background: #fffaf0; }
+.ornate .search-wrap button { color: var(--primary); }
+.ornate .categories { padding-top: 18px; padding-bottom: 18px; }
+.ornate .categories button { border-color: var(--line); border-radius: 3px; padding-inline: 16px; }
+.ornate #menu { display: grid; grid-template-columns: minmax(0,1fr) minmax(0,1fr); align-items: start; gap: 28px; padding-top: 28px; }
+.ornate .menu-category {
+  position: relative; margin: 0; padding: 24px 22px 14px; min-width: 0;
+  border: 4px double var(--gold); border-radius: 22px 5px;
+  background: #fffaf066;
+}
+.ornate .menu-category::before, .ornate .menu-category::after {
+  content: '✦'; position: absolute; inset-inline: 0; margin: auto; width: 34px;
+  text-align: center; color: var(--gold); background: var(--background); font-size: 22px; line-height: 24px;
+}
+.ornate .menu-category::before { top: -14px; }
+.ornate .menu-category::after { bottom: -14px; }
+.ornate .category-heading { justify-content: center; text-align: center; margin-bottom: 16px; border: 1px solid var(--line); background: var(--accent); padding: 8px; }
+.ornate .category-heading h2 { font-family: 'Traditional Arabic', 'Times New Roman', serif; font-size: 26px; line-height: 1.4; }
+.ornate .category-heading>span { display: none; }
+.ornate .items { display: block; }
+.ornate .menu-item { min-height: 0; padding: 13px 0; border-top: 1px dotted var(--line); }
+.ornate .menu-item:first-child { border-top: 0; }
+.ornate .item-content { display: flex; align-items: baseline; justify-content: space-between; gap: 16px; flex-wrap: wrap; }
+.ornate .item-content h3 { flex: 1; min-width: 0; margin: 0; font-size: 16px; font-weight: 400; line-height: 1.8; }
+.ornate .item-prices { flex-shrink: 0; }
+.ornate .price { font-family: Georgia, 'Times New Roman', serif; font-size: 20px; font-variant-numeric: tabular-nums; }
+.ornate .price small { font-family: Tahoma, sans-serif; color: var(--muted); }
+.ornate .item-content>p, .ornate .item-content>details, .ornate .labels, .ornate .availability { flex-basis: 100%; }
+.ornate #no-results { grid-column: 1/-1; }
+.ornate .contact { margin: 40px auto 8px; max-width: 520px; padding: 22px; text-align: center; border: 4px double var(--gold); border-radius: 40px 8px; background: var(--accent); }
+.ornate .contact h2 { font-size: 16px; font-weight: 400; }
+.ornate .contact-links { justify-content: center; }
+.ornate .contact-links a { display: flex; gap: 14px; align-items: center; border-color: var(--gold); border-radius: 4px; color: #fff; background: var(--primary); }
+.ornate .contact-links bdi { font-family: Georgia, serif; font-size: 21px; }
+.ornate footer { margin-top: 24px; }
+.ornate :is(a,button,input,summary):focus-visible { outline-color: var(--primary); }
+@media (max-width:700px) {
+  .ornate { border-width: 5px; }
+  .ornate .topbar { padding: 0 18px; height: 62px; }
+  .ornate .shell { padding: 0 16px 24px; }
+  .ornate .brand-header { overflow: visible; padding: 12px 0 24px; }
+  .ornate .brand-header::before, .ornate .brand-header::after { top: 54px; font-size: 46px; }
+  .ornate .brand-header::before { left: 5%; }
+  .ornate .brand-header::after { right: 5%; }
+  .ornate .seasonal-crest { width: 92px; height: 108px; margin-bottom: 16px; }
+  .ornate h1 { font-size: 36px; }
+  .ornate .alternate-name { font-size: 16px; letter-spacing: .05em; }
+  .ornate .tagline { max-width: none; font-size: 14px; }
+  .ornate .menu-tools { margin-top: 24px; }
+  .ornate .categories { margin-inline: -16px; padding-inline: 16px; }
+  .ornate #menu { grid-template-columns: minmax(0,1fr); gap: 28px; }
+  .ornate .menu-category { padding: 22px 16px 12px; }
+  .ornate .category-heading h2 { font-size: 24px; }
+  .ornate .item-content { gap: 12px; }
+  .ornate .item-content h3 { font-size: 15px; }
+  .ornate .price { font-size: 19px; }
+}
+@media print {
+  .ornate { border: 0; background: #fff; }
+  .ornate #menu { grid-template-columns: 1fr 1fr; }
+  .ornate .menu-category { break-inside: avoid; }
+  .ornate .contact-links a { color: var(--ink); background: transparent; }
+}

@@ -33,15 +33,35 @@ test('data contract rejects invalid prices, duplicate IDs, missing/unsafe assets
 test('project-path deployment prefixes internal links and assets without changing external URLs', async () => {
   try {
     await build({basePath:'/holool-menu'});
-    for (const relative of ['index.html','en/index.html','404.html','example-cafe/index.html','example-cafe/en/index.html']) {
+    for (const relative of ['index.html','en/index.html','404.html','example-cafe/index.html','example-cafe/en/index.html','four-season-salon/index.html','four-season-salon/en/index.html']) {
       const html = await fs.readFile(path.join(root,'dist',relative),'utf8');
       const localURLs = [...html.matchAll(/(?:href|src)="(\/(?!\/)[^"]*)"/g)].map(match => match[1]);
       assert.ok(localURLs.length);
       assert.ok(localURLs.every(url => url.startsWith('/holool-menu/')));
+      if (relative.startsWith('four-season-salon/')) assert.match(html, /href="\/holool-menu\/shared\/ornate.css"/);
+      else assert.doesNotMatch(html, /ornate.css/);
       if (relative !== '404.html') assert.match(html, /href="https:\/\/holoolsoftware.com"/);
     }
     await assert.rejects(build({basePath:'https://unsafe.example'}), /BASE_PATH/);
   } finally { await build({basePath:''}); }
+});
+test('salon theme preserves source content, language fallbacks and publication boundaries', async () => {
+  const salonDirectory = path.join(root, 'businesses/four-season-salon');
+  const menu = JSON.parse(await fs.readFile(path.join(salonDirectory, 'menu.json'), 'utf8'));
+  assert.deepEqual(await validateMenu(menu, salonDirectory), []);
+  const invalid = structuredClone(menu); invalid.branding.theme = 'unsupported-theme';
+  assert.ok((await validateMenu(invalid, salonDirectory)).length);
+  const html = menuContent(menu, 'en', {});
+  assert.match(html, /Service menu/);
+  assert.match(html, /class="seasonal-crest"/);
+  assert.doesNotMatch(html, /class="hero-art"|Café menu/);
+  assert.match(html, /lang="ar" dir="rtl">حلاقة رأس/);
+  assert.match(html, /href="tel:0100494444"/);
+  assert.equal((html.match(/class="menu-item"/g) || []).length, 19);
+  assert.equal((html.match(/class="menu-category"/g) || []).length, 6);
+  assert.doesNotMatch(menuContent(clone(), 'en', {}), /ornate|seasonal-crest/);
+  await assert.rejects(fs.access(path.join(root, 'dist/four-season-salon/instructions.md')));
+  await assert.rejects(fs.access(path.join(root, 'dist/four-season-salon/source/menu-reference.jpeg')));
 });
 test('renderer preserves zero, missing prices, fallbacks, hidden content, empty state and escaping', () => {
   const menu = clone();

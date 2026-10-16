@@ -1,0 +1,211 @@
+{
+  "identity": {
+    "name": {
+      "ar": "فور سيزونز صالون",
+      "en": "Four Season Salon"
+    },
+    "type": "salon",
+    "tagline": {
+      "ar": "الأناقة في كل موسم",
+      "en": "Elegance all year round"
+    }
+  },
+  "languages": [
+    "ar",
+    "en"
+  ],
+  "defaultLanguage": "ar",
+  "currency": "SDG",
+  "branding": {
+    "theme": "ornate",
+    "primary": "#60390F",
+    "background": "#FBF5E7",
+    "accent": "#F2E2B9"
+  },
+  "contact": {
+    "phone": "0100494444"
+  },
+  "categories": [
+    {
+      "id": "haircuts",
+      "name": {
+        "ar": "خدمات الحلاقة والقص"
+      },
+      "items": [
+        {
+          "id": "head-shave",
+          "name": {
+            "ar": "حلاقة رأس"
+          },
+          "price": 15000
+        },
+        {
+          "id": "head-and-beard",
+          "name": {
+            "ar": "حلاقة رأس + دقن"
+          },
+          "price": 20000
+        },
+        {
+          "id": "children-haircut",
+          "name": {
+            "ar": "حلاقة أطفال"
+          },
+          "price": 15000
+        },
+        {
+          "id": "curly",
+          "name": {
+            "ar": "كيرلي"
+          },
+          "price": 40000
+        },
+        {
+          "id": "hair-straightening",
+          "name": {
+            "ar": "فرد شعر"
+          },
+          "price": 20000
+        }
+      ]
+    },
+    {
+      "id": "hair-and-skin",
+      "name": {
+        "ar": "العناية بالشعر والبشرة"
+      },
+      "items": [
+        {
+          "id": "regular-oil-treatment",
+          "name": {
+            "ar": "حمام زيت عادي"
+          },
+          "price": 10000
+        },
+        {
+          "id": "steam-oil-treatment",
+          "name": {
+            "ar": "حمام زيت بخار"
+          },
+          "price": 15000
+        },
+        {
+          "id": "exfoliation",
+          "name": {
+            "ar": "صنفرة"
+          },
+          "price": 10000
+        },
+        {
+          "id": "black-peel-mask",
+          "name": {
+            "ar": "قناع لاصق أسود"
+          },
+          "price": 10000
+        },
+        {
+          "id": "clay-mask",
+          "name": {
+            "ar": "قناع طيني"
+          },
+          "price": 12000
+        },
+        {
+          "id": "facial-sauna",
+          "name": {
+            "ar": "ساونا وجه"
+          },
+          "price": 15000
+        }
+      ]
+    },
+    {
+      "id": "coloring",
+      "name": {
+        "ar": "خدمات الصبغة"
+      },
+      "items": [
+        {
+          "id": "head-coloring",
+          "name": {
+            "ar": "صبغة رأس"
+          },
+          "price": 10000
+        },
+        {
+          "id": "head-and-beard-coloring",
+          "name": {
+            "ar": "صبغة رأس ودقن"
+          },
+          "price": 12000
+        }
+      ]
+    },
+    {
+      "id": "complete-care",
+      "name": {
+        "ar": "العناية الكاملة"
+      },
+      "items": [
+        {
+          "id": "pedicure",
+          "name": {
+            "ar": "باديكير"
+          },
+          "price": 30000
+        },
+        {
+          "id": "full-sauna",
+          "name": {
+            "ar": "ساونا كاملة"
+          },
+          "price": 50000
+        }
+      ]
+    },
+    {
+      "id": "packages",
+      "name": {
+        "ar": "الباقات والعروض"
+      },
+      "items": [
+        {
+          "id": "head-beard-exfoliation-package",
+          "name": {
+            "ar": "باقة (رأس + دقن + صنفرة)"
+          },
+          "price": 25000
+        },
+        {
+          "id": "head-beard-exfoliation-color-package",
+          "name": {
+            "ar": "باقة (رأس + دقن + صنفرة + صبغة)"
+          },
+          "price": 30000
+        }
+      ]
+    },
+    {
+      "id": "groom-preparation",
+      "name": {
+        "ar": "تجهيز العرسان"
+      },
+      "items": [
+        {
+          "id": "regular-groom",
+          "name": {
+            "ar": "تجهيز عريس عادي"
+          },
+          "price": 300000
+        },
+        {
+          "id": "vip-groom",
+          "name": {
+            "ar": "تجهيز عريس VIP"
+          },
+          "price": 400000
+        }
+      ]
+    }
+  ]
+}
