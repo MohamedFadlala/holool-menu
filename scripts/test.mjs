@@ -4,6 +4,7 @@ import fs from 'node:fs/promises';
 import path from 'node:path';
 import { createHash } from 'node:crypto';
 import { execFileSync } from 'node:child_process';
+import sharp from 'sharp';
 import { root, validateMenu } from './validate.mjs';
 import { build } from './build.mjs';
 import { menuContent } from '../src/components/menu.mjs';
@@ -21,6 +22,10 @@ test('data contract rejects invalid prices, duplicate IDs, missing/unsafe assets
   assert.match((await validateMenu(duplicate, directory)).join(), /Duplicate ID/);
   const missing = clone(); missing.branding.logo = 'assets/nonexistent.png';
   assert.match((await validateMenu(missing, directory)).join(), /Missing/);
+  const missingIcon = clone(); missingIcon.branding.icon = 'assets/nonexistent.png';
+  assert.match((await validateMenu(missingIcon, directory)).join(), /Missing/);
+  const unsafeIcon = clone(); unsafeIcon.branding.icon = 'assets/../source/private.png';
+  assert.ok((await validateMenu(unsafeIcon, directory)).length);
   const unsafe = clone(); unsafe.branding.logo = 'assets/../source/private.png';
   assert.ok((await validateMenu(unsafe, directory)).length);
   const mixed = clone(); mixed.categories[0].items[0].variants = [{id:'bad', name:{ar:'عادي'}, price:1}];
@@ -38,7 +43,11 @@ test('project-path deployment prefixes internal links and assets without changin
       const localURLs = [...html.matchAll(/(?:href|src)="(\/(?!\/)[^"]*)"/g)].map(match => match[1]);
       assert.ok(localURLs.length);
       assert.ok(localURLs.every(url => url.startsWith('/holool-menu/')));
-      if (relative.startsWith('four-season-salon/')) assert.match(html, /href="\/holool-menu\/shared\/ornate.css"/);
+      if (relative.startsWith('four-season-salon/')) {
+        assert.match(html, /href="\/holool-menu\/shared\/ornate.css"/);
+        assert.match(html, /rel="icon" href="\/holool-menu\/four-season-salon\/favicon.png"/);
+        assert.match(html, /rel="apple-touch-icon" href="\/holool-menu\/four-season-salon\/apple-touch-icon.png"/);
+      }
       else assert.doesNotMatch(html, /ornate.css/);
       if (relative !== '404.html') assert.match(html, /href="https:\/\/holoolsoftware.com"/);
     }
@@ -51,9 +60,20 @@ test('salon theme preserves source content, language fallbacks and publication b
   assert.deepEqual(await validateMenu(menu, salonDirectory), []);
   const invalid = structuredClone(menu); invalid.branding.theme = 'unsupported-theme';
   assert.ok((await validateMenu(invalid, salonDirectory)).length);
-  const html = menuContent(menu, 'en', {});
+  const html = menuContent(menu, 'en', {[menu.branding.logo]: '/four-season-salon/assets/logo-jpeg.webp'});
   assert.match(html, /Service menu/);
-  assert.match(html, /class="seasonal-crest"/);
+  assert.match(html, /class="logo"/);
+  assert.doesNotMatch(html, /class="seasonal-crest"/);
+  assert.match(html, /class="logo" src="\/four-season-salon\/assets\/logo-jpeg.webp"/);
+  assert.match(html, /<label for="category-select">Menu categories<\/label>/);
+  assert.equal((html.match(/<option value=/g) || []).length, 7);
+  for (const [name, size] of [['favicon',48], ['apple-touch-icon',180]]) {
+    const metadata = await sharp(path.join(root, `dist/four-season-salon/${name}.png`)).metadata();
+    assert.equal(metadata.width, size);
+    assert.equal(metadata.height, size);
+  }
+  const noLogo = structuredClone(menu); delete noLogo.branding.logo;
+  assert.match(menuContent(noLogo, 'en', {}), /class="seasonal-crest"/);
   assert.doesNotMatch(html, /class="hero-art"|Café menu/);
   assert.match(html, /lang="ar" dir="rtl">حلاقة رأس/);
   assert.match(html, /href="tel:0100494444"/);

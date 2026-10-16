@@ -39,6 +39,18 @@ export async function build({basePath = process.env.BASE_PATH || ''} = {}) {
       await sharp(path.join(directory, asset)).rotate().resize({ width: asset === menu.branding.logo ? 240 : 480, height: asset === menu.branding.logo ? 240 : 480, fit: 'inside', withoutEnlargement: true }).webp({ quality: 80 }).toFile(destination);
       images[asset] = `/${slug}/${relative}`;
     }
+    // Only businesses explicitly supplying an icon receive these generated assets.
+    let favicon = '';
+    let touchIcon = '';
+    if (menu.branding.icon) {
+      for (const [name, size] of [['favicon', 48], ['apple-touch-icon', 180]]) {
+        await sharp(path.join(directory, menu.branding.icon)).rotate()
+          .resize(size, size, {fit: 'contain', background: '#ffffff'})
+          .png().toFile(path.join(target, `${name}.png`));
+      }
+      favicon = `/${slug}/favicon.png`;
+      touchIcon = `/${slug}/apple-touch-icon.png`;
+    }
     for (const lang of menu.languages) {
       const langDir = lang === menu.defaultLanguage ? target : path.join(target, lang);
       await fs.mkdir(langDir, { recursive: true });
@@ -51,7 +63,7 @@ export async function build({basePath = process.env.BASE_PATH || ''} = {}) {
         content = content.replace(/class="language" href="[^"]*"/, `class="language" href="${href}"`);
       }
       const title = menu.identity.name[lang] || menu.identity.name[menu.defaultLanguage];
-      await fs.writeFile(path.join(langDir, 'index.html'), render({title, lang, content, style, script: true, themeColor: menu.branding.primary, extraStylesheet: menu.branding.theme === 'ornate' ? '/shared/ornate.css' : ''}));
+      await fs.writeFile(path.join(langDir, 'index.html'), render({title, lang, content, style, script: true, themeColor: menu.branding.primary, extraStylesheet: menu.branding.theme === 'ornate' ? '/shared/ornate.css' : '', favicon, touchIcon}));
     }
   }
   for (const lang of ['ar','en']) {

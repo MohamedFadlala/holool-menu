@@ -46,6 +46,8 @@ Read root `AGENTS.md`, the target brief, and source documents first. Edit only t
 
   Optional `branding.theme: "ornate"` adds ivory/gold framing, a centered identity, a decorative crown-and-seasons crest when no logo is supplied, and compact service rows. Its separate stylesheet loads only for businesses choosing this theme. Four Season Salon uses it at `/four-season-salon/` (Arabic) and `/four-season-salon/en/` (English identity with original Arabic service names).
 
+  `branding.icon` accepts a local raster asset path (use the same path as `branding.logo` to reuse the artwork). Build generates a 48px PNG favicon and a 180px Apple touch icon with working links in both language versions and project-path deployments. The ornate theme uses a compact identity, a native sticky category picker, and a call shortcut on mobile; all services remain readable without JavaScript.
+
 See `schemas/menu.schema.json` and `businesses/example-cafe/menu.json` for the complete data shape. `npm run validate` catches schema errors, duplicate IDs, invalid prices, language mismatches, unsafe paths, and missing assets. Build also rejects unreadable image data. Never invent content to fix validation: report the exact ambiguity to the owner.
 
 ## QR codes

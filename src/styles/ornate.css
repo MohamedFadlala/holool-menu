@@ -31,7 +31,11 @@
 .ornate .brand-header::before { left: 9%; transform: rotate(-28deg); }
 .ornate .brand-header::after { right: 9%; transform: rotate(28deg) scaleX(-1); }
 .ornate .seasonal-crest { display: block; width: 118px; height: 138px; margin: 0 auto 14px; }
-.ornate .logo { display: block; margin: 0 auto 14px; }
+.ornate .logo { display: block; width: 104px; height: auto; aspect-ratio: 194/276; border-radius: 0; background: transparent; object-fit: contain; mix-blend-mode: multiply; margin: 0 auto 14px; }
+.ornate .quick-call { min-width: 64px; min-height: 44px; display: inline-flex; align-items: center; justify-content: center; border: 1px solid var(--gold); border-radius: 4px; text-decoration: none; color: var(--primary); font-size: 14px; }
+.ornate .language { padding-inline: 8px; }
+.ornate .category-picker { display: none; }
+.ornate .screen-reader-only { position: absolute; width: 1px; height: 1px; padding: 0; margin: -1px; overflow: hidden; clip-path: inset(50%); white-space: nowrap; border: 0; }
 .ornate h1 { font-family: 'Traditional Arabic', 'Times New Roman', serif; font-size: 48px; line-height: 1.35; }
 .ornate .alternate-name { margin: 8px 0 0; font-family: Georgia, 'Traditional Arabic', serif; font-size: 20px; letter-spacing: .08em; }
 .ornate .alternate-name[lang=ar] { letter-spacing: 0; }
@@ -40,6 +44,8 @@
 .ornate .tagline { margin: 0; font-size: 15px; opacity: 1; color: var(--muted); }
 .ornate .menu-heading h2 { font-size: 23px; }
 .ornate .search-wrap { border-color: var(--line); border-radius: 4px; background: #fffaf0; }
+.ornate .search-wrap input { font-size: 16px; }
+.ornate .search-wrap input::placeholder { color: var(--muted); opacity: 1; }
 .ornate .search-wrap button { color: var(--primary); }
 .ornate .categories { padding-top: 18px; padding-bottom: 18px; }
 .ornate .categories button { border-color: var(--line); border-radius: 3px; padding-inline: 16px; }
@@ -61,12 +67,12 @@
 .ornate .items { display: block; }
 .ornate .menu-item { min-height: 0; padding: 13px 0; border-top: 1px dotted var(--line); }
 .ornate .menu-item:first-child { border-top: 0; }
-.ornate .item-content { display: flex; align-items: baseline; justify-content: space-between; gap: 16px; flex-wrap: wrap; }
+.ornate .item-content { display: grid; grid-template-columns: minmax(0, 1fr) max-content; align-items: baseline; gap: 8px 16px; }
 .ornate .item-content h3 { flex: 1; min-width: 0; margin: 0; font-size: 16px; font-weight: 400; line-height: 1.8; }
 .ornate .item-prices { flex-shrink: 0; }
 .ornate .price { font-family: Georgia, 'Times New Roman', serif; font-size: 20px; font-variant-numeric: tabular-nums; }
 .ornate .price small { font-family: Tahoma, sans-serif; color: var(--muted); }
-.ornate .item-content>p, .ornate .item-content>details, .ornate .labels, .ornate .availability { flex-basis: 100%; }
+.ornate .item-content>p, .ornate .item-content>details, .ornate .labels, .ornate .availability { grid-column: 1/-1; }
 .ornate #no-results { grid-column: 1/-1; }
 .ornate .contact { margin: 40px auto 8px; max-width: 520px; padding: 22px; text-align: center; border: 4px double var(--gold); border-radius: 40px 8px; background: var(--accent); }
 .ornate .contact h2 { font-size: 16px; font-weight: 400; }
@@ -75,28 +81,55 @@
 .ornate .contact-links bdi { font-family: Georgia, serif; font-size: 21px; }
 .ornate footer { margin-top: 24px; }
 .ornate :is(a,button,input,summary):focus-visible { outline-color: var(--primary); }
+.ornate select:focus-visible { outline: 3px solid var(--primary); outline-offset: 3px; }
+@media (hover:hover) {
+  .ornate .quick-call:hover, .ornate .language:hover { background: var(--accent); }
+  .ornate .categories button:hover:not([aria-pressed=true]) { background: var(--accent); }
+  .ornate .contact-links a:hover { background: var(--ink); }
+}
 @media (max-width:700px) {
-  .ornate { border-width: 5px; }
-  .ornate .topbar { padding: 0 18px; height: 62px; }
-  .ornate .shell { padding: 0 16px 24px; }
-  .ornate .brand-header { overflow: visible; padding: 12px 0 24px; }
-  .ornate .brand-header::before, .ornate .brand-header::after { top: 54px; font-size: 46px; }
-  .ornate .brand-header::before { left: 5%; }
-  .ornate .brand-header::after { right: 5%; }
-  .ornate .seasonal-crest { width: 92px; height: 108px; margin-bottom: 16px; }
-  .ornate h1 { font-size: 36px; }
-  .ornate .alternate-name { font-size: 16px; letter-spacing: .05em; }
-  .ornate .tagline { max-width: none; font-size: 14px; }
-  .ornate .menu-tools { margin-top: 24px; }
-  .ornate .categories { margin-inline: -16px; padding-inline: 16px; }
-  .ornate #menu { grid-template-columns: minmax(0,1fr); gap: 28px; }
-  .ornate .menu-category { padding: 22px 16px 12px; }
-  .ornate .category-heading h2 { font-size: 24px; }
+  .ornate { border-width: 3px; }
+  .ornate .topbar { padding: 8px 14px 0; height: 52px; }
+  .ornate .shell { padding: 0 12px 16px; }
+  .ornate .brand-header { overflow: visible; padding: 16px 0 18px; }
+  .ornate .brand-header::before, .ornate .brand-header::after { display: none; }
+  .ornate .ornate-identity { display: grid; grid-template-columns: 72px minmax(0,1fr); column-gap: 14px; row-gap: 4px; align-items: center; text-align: start; }
+  .ornate .logo, .ornate .seasonal-crest { grid-column: 1; grid-row: 1 / span 3; width: 72px; height: auto; margin: 0; }
+  .ornate h1 { grid-column: 2; font-size: clamp(27px, 7.5vw, 32px); line-height: 1.3; text-wrap: balance; }
+  .ornate .alternate-name { grid-column: 2; font-size: 14px; line-height: 1.5; letter-spacing: 0; margin: 0; }
+  html[dir=rtl] .ornate .alternate-name { text-align: right; }
+  html[dir=ltr] .ornate .alternate-name { text-align: left; }
+  .ornate .brand-divider { display: none; }
+  .ornate .tagline { grid-column: 2; max-width: none; font-size: 13px; line-height: 1.6; }
+  .ornate .menu-tools { margin-top: 18px; }
+  .ornate .menu-heading { justify-content: space-between; gap: 8px; }
+  .ornate .menu-heading h2 { font-size: 21px; }
+  .ornate .menu-heading>span { font-size: 13px; }
+  .ornate .search-wrap { margin-top: 12px; }
+  .ornate .categories { display: none; }
+  .ornate .category-picker { display: flex; align-items: center; gap: 10px; position: sticky; top: 0; z-index: 3; background: var(--background); border-bottom: 1px solid var(--line); margin-inline: -12px; padding: 10px 12px; }
+  .ornate .category-picker label { flex: 0 0 64px; font-size: 12px; line-height: 1.5; color: var(--muted); }
+  .ornate .category-picker select { flex: 1; min-width: 0; width: 100%; min-height: 46px; padding: 8px; border: 1px solid var(--gold); border-radius: 4px; background: #fffaf0; color: var(--ink); font: inherit; font-size: 16px; touch-action: manipulation; }
+  .ornate #menu { grid-template-columns: minmax(0,1fr); gap: 24px; padding-top: 18px; scroll-margin-top: 84px; }
+  .ornate .menu-category { padding: 14px 12px 6px; scroll-margin-top: 84px; }
+  .ornate .category-heading { margin-bottom: 6px; padding: 6px; }
+  .ornate .category-heading h2 { font-size: 24px; line-height: 1.5; }
+  .ornate .menu-item { padding: 12px 0; }
   .ornate .item-content { gap: 12px; }
-  .ornate .item-content h3 { font-size: 15px; }
-  .ornate .price { font-size: 19px; }
+  .ornate .item-content h3 { font-size: 16px; line-height: 1.75; overflow-wrap: anywhere; }
+  .ornate .price { font-family: Tahoma, Arial, sans-serif; font-size: 18px; }
+  .ornate .price small { font-size: 11px; }
+  .ornate .contact { margin-top: 28px; padding: 16px; }
+  .ornate footer { margin-top: 16px; padding: 22px 8px; font-size: 12px; }
+}
+@media (max-width:360px) {
+  .ornate .ornate-identity { grid-template-columns: 62px minmax(0,1fr); column-gap: 10px; }
+  .ornate .logo { width: 62px; }
+  .ornate .item-content { column-gap: 8px; }
+  .ornate .price { font-size: 17px; }
 }
 @media print {
+  .ornate .category-picker, .ornate .quick-call { display: none; }
   .ornate { border: 0; background: #fff; }
   .ornate #menu { grid-template-columns: 1fr 1fr; }
   .ornate .menu-category { break-inside: avoid; }

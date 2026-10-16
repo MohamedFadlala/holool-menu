@@ -21,7 +21,9 @@
     "primary": "#60390F",
     "background": "#FBF5E7",
     "accent": "#F2E2B9",
-    "attribution": "footer"
+    "attribution": "footer",
+    "logo": "assets/logo.jpeg",
+    "icon": "assets/logo.jpeg"
   },
   "contact": {
     "phone": "0100494444"

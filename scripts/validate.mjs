@@ -22,7 +22,7 @@ export async function validateMenu(menu, directory) {
   checkText(menu.contact?.hours, 'contact.hours');
   const ids = new Set();
   const addId = id => { if (ids.has(id)) errors.push(`Duplicate ID: ${id}`); ids.add(id); };
-  const assets = [menu.branding.logo];
+  const assets = [menu.branding.logo, menu.branding.icon];
   for (const cat of menu.categories) {
     addId(cat.id); checkText(cat.name, cat.id); checkText(cat.description, cat.id);
     for (const item of cat.items) {
